@@ -2,6 +2,9 @@ const { resolve, dirname } = require("path");
 const HTMLWebpackPlugin = require("html-webpack-plugin");
 const MiniCssPlugin = require("mini-css-extract-plugin");
 
+// 设置node js环境变量
+process.env.NODE_ENV = "development";
+
 module.exports = {
 	entry: "./src/index.js",
 	output: {
@@ -17,8 +20,14 @@ module.exports = {
 					MiniCssPlugin.loader,
 					"css-loader",
 					{
-						loader: 'postcss-loader'
-					}
+						// 默认是读取browserslist的production的配置，需要设置node环境变量来实现develop配置读取
+						loader: "postcss-loader",
+						options: {
+							postcssOptions: {
+								plugins: ["postcss-preset-env"],
+							},
+						},
+					},
 				],
 			},
 			{
@@ -38,14 +47,14 @@ module.exports = {
 					esModule: false,
 				},
 			},
-			// {
-			// 	exclude: /\.(html|css|js|jpg|png)$/i,
-			// 	loader: "file-loader",
-			// 	options: {
-			// 		name: "[hash:10].[ext]",
-			// 		outputPath: "files",
-			// 	},
-			// },
+			{
+				exclude: /\.(html|css|js|jpg|png)$/i,
+				loader: "file-loader",
+				options: {
+					name: "[hash:10].[ext]",
+					outputPath: "files",
+				},
+			},
 		],
 	},
 	plugins: [
@@ -53,7 +62,7 @@ module.exports = {
 			template: "./src/index.html",
 		}),
 		new MiniCssPlugin({
-			filename: 'css/build.css'
+			filename: "css/build.css",
 		}),
 	],
 	mode: "development",
