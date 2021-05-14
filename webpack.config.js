@@ -1,6 +1,12 @@
 const { resolve, dirname } = require("path");
 const HTMLWebpackPlugin = require("html-webpack-plugin");
+
+// 单独提取css文件
 const MiniCssPlugin = require("mini-css-extract-plugin");
+
+// 压缩css
+const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
+
 
 // 设置node js环境变量
 process.env.NODE_ENV = "development";
@@ -64,6 +70,7 @@ module.exports = {
 		new MiniCssPlugin({
 			filename: "css/build.css",
 		}),
+		new OptimizeCssAssetsWebpackPlugin()
 	],
 	mode: "development",
 
