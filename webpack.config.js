@@ -5,8 +5,7 @@ const HTMLWebpackPlugin = require("html-webpack-plugin");
 const MiniCssPlugin = require("mini-css-extract-plugin");
 
 // 压缩css
-const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
-
+const OptimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin");
 
 // 设置node js环境变量
 process.env.NODE_ENV = "development";
@@ -61,14 +60,24 @@ module.exports = {
 					outputPath: "files",
 				},
 			},
+			// {
+			// 	test: /\.js$/,
+			// 	exclude: /node_modules/,
+			// 	loader: 'eslint-loader',
+			// 	options: {
+			// 		fix: true
+			// 	}
+			// }
 			{
-				test: /\.js$/,
+				test: /\.m?js$/,
 				exclude: /node_modules/,
-				loader: 'eslint-loader',
-				options: {
-					fix: true
-				}
-			}
+				use: {
+					loader: "babel-loader",
+					options: {
+						presets: ["@babel/preset-env"],
+					},
+				},
+			},
 		],
 	},
 	plugins: [
@@ -78,7 +87,7 @@ module.exports = {
 		new MiniCssPlugin({
 			filename: "css/build.css",
 		}),
-		new OptimizeCssAssetsWebpackPlugin()
+		new OptimizeCssAssetsWebpackPlugin(),
 	],
 	mode: "development",
 
