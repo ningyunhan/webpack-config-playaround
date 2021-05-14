@@ -12,6 +12,10 @@
 		"license": "ISC",
 		"devDependencies": {
 				"css-loader": "^5.2.4",
+				"eslint": "^7.26.0",
+				"eslint-config-airbnb-base": "^14.2.1",
+				"eslint-loader": "^4.0.2",
+				"eslint-plugin-import": "^2.23.0",
 				"file-loader": "^6.2.0",
 				"html-loader": "^2.1.2",
 				"html-webpack-plugin": "^5.3.1",
@@ -36,5 +40,8 @@
 						"not dead",
 						"not op_mini all"
 				]
+		},
+		"eslintConfig": {
+			"extends": "airbnb-base"
 		}
 }
