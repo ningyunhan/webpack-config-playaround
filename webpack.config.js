@@ -88,6 +88,7 @@ module.exports = {
 									// 指定兼容性做到哪个浏览器版本
 									targets: {
 										chrome: "60",
+										ie: '9'
 									},
 								},
 							],
