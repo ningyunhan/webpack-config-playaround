@@ -8,7 +8,7 @@ const MiniCssPlugin = require("mini-css-extract-plugin");
 const OptimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin");
 
 // 设置node js环境变量
-process.env.NODE_ENV = "development";
+// process.env.NODE_ENV = "development";
 
 module.exports = {
 	entry: "./src/index.js",
@@ -101,13 +101,18 @@ module.exports = {
 	plugins: [
 		new HTMLWebpackPlugin({
 			template: "./src/index.html",
+			// 用来压缩html
+			minify: {
+				collapseWhitespace: true,
+				removeComments: true
+			}
 		}),
 		new MiniCssPlugin({
 			filename: "css/build.css",
 		}),
 		new OptimizeCssAssetsWebpackPlugin(),
 	],
-	mode: "development",
+	mode: "production",
 
 	// 保证webpack输出的代码不含有es6语法
 	target: "es5",
