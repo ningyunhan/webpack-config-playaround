@@ -1,4 +1,5 @@
 import './index.css';
+// import Promise from 'core-js-pure/features/promise';
 
 const c = (a, b) => a + b;
 let a = 12;
