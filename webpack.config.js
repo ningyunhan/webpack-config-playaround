@@ -75,7 +75,22 @@ module.exports = {
 					loader: "babel-loader",
 					options: {
 						presets: [
-							["@babel/preset-env", { targets: "defaults" }],
+							[
+								"@babel/preset-env",
+								{
+									// 测试一定要指定 否则无法编译es6 -> es5
+									targets: "defaults",
+									// 按需加载
+									useBuiltIns: "usage",
+									corejs: {
+										version: 3,
+									},
+									// 指定兼容性做到哪个浏览器版本
+									targets: {
+										chrome: "60",
+									},
+								},
+							],
 						],
 					},
 				},
@@ -92,6 +107,9 @@ module.exports = {
 		new OptimizeCssAssetsWebpackPlugin(),
 	],
 	mode: "development",
+
+	// 保证webpack输出的代码不含有es6语法
+	target: "es5",
 
 	//npx webpack serve
 	devServer: {
