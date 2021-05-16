@@ -60,14 +60,16 @@ module.exports = {
 					outputPath: "files",
 				},
 			},
-			// {
-			// 	test: /\.js$/,
-			// 	exclude: /node_modules/,
-			// 	loader: 'eslint-loader',
-			// 	options: {
-			// 		fix: true
-			// 	}
-			// }
+			{
+				test: /\.js$/,
+				exclude: /node_modules/,
+				loader: 'eslint-loader',
+				// 指定eslint loader优先执行
+				enforce: "pre",
+				options: {
+					fix: true
+				}
+			},
 			{
 				test: /\.m?js$/,
 				exclude: /node_modules/,
