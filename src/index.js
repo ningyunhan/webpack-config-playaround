@@ -1,5 +1,5 @@
 import './index.css';
-// import Promise from 'core-js-pure/features/promise';
+import print from './print';
 
 const c = (a, b) => a + b;
 const a = 12;
@@ -9,9 +9,19 @@ const b = new Promise((resolve) => {
     resolve(12);
   }, 1000);
 }).then((data) => {
-  console.log(data);
+  // eslint-disable-next-line
+	console.log(data);
 });
 
 // eslint-disable-next-line
-console.log(c(12,23))
+console.log(c(12, 23));
+// eslint-disable-next-line
 console.log(12, a, b);
+
+print();
+
+if (module.hot) {
+  module.hot.accept('./print.js', () => {
+    print();
+  });
+}

@@ -7,11 +7,20 @@ const MiniCssPlugin = require("mini-css-extract-plugin");
 // 压缩css
 const OptimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin");
 
+
+
+const production = true;
+const env = production ? 'production' : 'development';
+const cssLoader = [
+	production ? MiniCssPlugin.loader : "style-loader"
+];
+
+
 // 设置node js环境变量
 // process.env.NODE_ENV = "development";
 
 module.exports = {
-	entry: "./src/index.js",
+	entry: ["./src/index.js", "./src/index.html"],
 	output: {
 		filename: "js/build.js",
 		path: resolve(__dirname, "build"),
@@ -21,8 +30,7 @@ module.exports = {
 			{
 				test: /\.css$/,
 				use: [
-					// "style-loader",
-					MiniCssPlugin.loader,
+					...cssLoader,
 					"css-loader",
 					{
 						// 默认是读取browserslist的production的配置，需要设置node环境变量来实现develop配置读取
@@ -114,7 +122,7 @@ module.exports = {
 		}),
 		new OptimizeCssAssetsWebpackPlugin(),
 	],
-	mode: "production",
+	mode: env,
 
 	// 保证webpack输出的代码不含有es6语法
 	target: "es5",
@@ -124,6 +132,9 @@ module.exports = {
 		contentBase: resolve(__dirname, "build"),
 		compress: true,
 		port: 3000,
+		// 开启HMR
+		// 入口文件没法进行HMR，html文件也不会进行HMR
+		hot: true,
 		open: true,
 	},
 };
