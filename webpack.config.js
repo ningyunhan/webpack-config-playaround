@@ -7,14 +7,30 @@ const MiniCssPlugin = require("mini-css-extract-plugin");
 // 压缩css
 const OptimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin");
 
-
-
 const production = true;
-const env = production ? 'production' : 'development';
-const cssLoader = [
-	production ? MiniCssPlugin.loader : "style-loader"
-];
+const env = production ? "production" : "development";
+const cssLoader = [production ? MiniCssPlugin.loader : "style-loader"];
 
+const plugins = production
+	? [
+			new HTMLWebpackPlugin({
+				template: "./src/index.html",
+				// 用来压缩html
+				minify: {
+					collapseWhitespace: true,
+					removeComments: true,
+				},
+			}),
+			new MiniCssPlugin({
+				filename: "css/build.css",
+			}),
+			new OptimizeCssAssetsWebpackPlugin(),
+	  ]
+	: [
+			new HTMLWebpackPlugin({
+				template: "./src/index.html",
+			}),
+	  ];
 
 // 设置node js环境变量
 // process.env.NODE_ENV = "development";
@@ -71,12 +87,12 @@ module.exports = {
 			{
 				test: /\.js$/,
 				exclude: /node_modules/,
-				loader: 'eslint-loader',
+				loader: "eslint-loader",
 				// 指定eslint loader优先执行
 				enforce: "pre",
 				options: {
-					fix: true
-				}
+					fix: true,
+				},
 			},
 			{
 				test: /\.m?js$/,
@@ -108,20 +124,7 @@ module.exports = {
 			},
 		],
 	},
-	plugins: [
-		new HTMLWebpackPlugin({
-			template: "./src/index.html",
-			// 用来压缩html
-			minify: {
-				collapseWhitespace: true,
-				removeComments: true
-			}
-		}),
-		new MiniCssPlugin({
-			filename: "css/build.css",
-		}),
-		new OptimizeCssAssetsWebpackPlugin(),
-	],
+	plugins: plugins,
 	mode: env,
 
 	// 保证webpack输出的代码不含有es6语法
@@ -137,4 +140,5 @@ module.exports = {
 		hot: true,
 		open: true,
 	},
+	devtool: "source-map",
 };
