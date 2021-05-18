@@ -44,45 +44,78 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.css$/,
-				use: [
-					...cssLoader,
-					"css-loader",
+				// 指示loader只会匹配一个， 但是注意不能两个loader处理同一种类型文件，所以将eslint-loader提取出来
+				oneOf: [
 					{
-						// 默认是读取browserslist的production的配置，需要设置node环境变量来实现develop配置读取
-						loader: "postcss-loader",
+						test: /\.css$/,
+						use: [
+							...cssLoader,
+							"css-loader",
+							{
+								// 默认是读取browserslist的production的配置，需要设置node环境变量来实现develop配置读取
+								loader: "postcss-loader",
+								options: {
+									postcssOptions: {
+										plugins: ["postcss-preset-env"],
+									},
+								},
+							},
+						],
+					},
+					{
+						test: /\.(jpg|png)$/,
+						loader: "url-loader",
 						options: {
-							postcssOptions: {
-								plugins: ["postcss-preset-env"],
+							limit: 8 * 1024,
+							name: "[hash:5].[ext]",
+							esModule: true,
+							outputPath: "imags",
+						},
+					},
+					{
+						test: /\.html$/i,
+						loader: "html-loader",
+						options: {
+							esModule: false,
+						},
+					},
+					{
+						exclude: /\.(html|css|js|jpg|png)$/i,
+						loader: "file-loader",
+						options: {
+							name: "[hash:10].[ext]",
+							outputPath: "files",
+						},
+					},
+					{
+						test: /\.m?js$/,
+						exclude: /node_modules/,
+						use: {
+							loader: "babel-loader",
+							options: {
+								presets: [
+									[
+										"@babel/preset-env",
+										{
+											// 测试一定要指定 否则无法编译es6 -> es5
+											targets: "defaults",
+											// 按需加载
+											useBuiltIns: "usage",
+											corejs: {
+												version: 3,
+											},
+											// 指定兼容性做到哪个浏览器版本
+											// targets: {
+											// 	chrome: "60",
+											// 	ie: '9'
+											// },
+										},
+									],
+								],
 							},
 						},
 					},
 				],
-			},
-			{
-				test: /\.(jpg|png)$/,
-				loader: "url-loader",
-				options: {
-					limit: 8 * 1024,
-					name: "[hash:5].[ext]",
-					esModule: true,
-					outputPath: "imags",
-				},
-			},
-			{
-				test: /\.html$/i,
-				loader: "html-loader",
-				options: {
-					esModule: false,
-				},
-			},
-			{
-				exclude: /\.(html|css|js|jpg|png)$/i,
-				loader: "file-loader",
-				options: {
-					name: "[hash:10].[ext]",
-					outputPath: "files",
-				},
 			},
 			{
 				test: /\.js$/,
@@ -92,34 +125,6 @@ module.exports = {
 				enforce: "pre",
 				options: {
 					fix: true,
-				},
-			},
-			{
-				test: /\.m?js$/,
-				exclude: /node_modules/,
-				use: {
-					loader: "babel-loader",
-					options: {
-						presets: [
-							[
-								"@babel/preset-env",
-								{
-									// 测试一定要指定 否则无法编译es6 -> es5
-									targets: "defaults",
-									// 按需加载
-									useBuiltIns: "usage",
-									corejs: {
-										version: 3,
-									},
-									// 指定兼容性做到哪个浏览器版本
-									// targets: {
-									// 	chrome: "60",
-									// 	ie: '9'
-									// },
-								},
-							],
-						],
-					},
 				},
 			},
 		],
@@ -141,9 +146,7 @@ module.exports = {
 		open: true,
 	},
 
-
 	// inline- | hidden | eval- | nosources- | cheap- | cheap-module
-
 
 	// source-map
 	// 外部 提示到错误代码准确信息和在源代码的错误位置
@@ -152,11 +155,11 @@ module.exports = {
 	// 内部 只生成一个内联source map文件
 	// 提示到错误代码准确信息和在源代码的错误位置
 
-	// hidden-source-map 
+	// hidden-source-map
 	// 外部生成map文件
 	// 提示错位代码错误原因，但是没有错误位置，不能追踪到源代码错误，只能提示到构建后代码错误位置
 
-	// eval-source-map 
+	// eval-source-map
 	// 内部 每一个js文件都会生成source-map 在eval函数里面
 	// 提示到错误代码准确信息和在源代码的错误位置
 
@@ -164,15 +167,13 @@ module.exports = {
 	// 外部
 	// 能到到错误代码准确信息，但是没有任何源代码的错误，看不到构建后的代码和源代码
 
-	//cheap-source-map 
+	//cheap-source-map
 	// 外部
 	// 提示到错误代码准确信息和在源代码的错误位置，但是只能精确到行
 
-	// cheap-module-source-map 
+	// cheap-module-source-map
 	// 外部
 	// 提示到错误代码准确信息和在源代码的错误位置，但是只能精确到行
-
-
 
 	// 用法
 	// development
