@@ -7,7 +7,7 @@ const MiniCssPlugin = require("mini-css-extract-plugin");
 // 压缩css
 const OptimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin");
 
-const production = true;
+const production = false;
 const env = production ? "production" : "development";
 const cssLoader = [production ? MiniCssPlugin.loader : "style-loader"];
 
@@ -140,5 +140,45 @@ module.exports = {
 		hot: true,
 		open: true,
 	},
+
+
+	// inline- | hidden | eval- | nosources- | cheap- | cheap-module
+
+
+	// source-map
+	// 外部 提示到错误代码准确信息和在源代码的错误位置
+
+	// inline-source-map 不会生成map文件，构建速度更快
+	// 内部 只生成一个内联source map文件
+	// 提示到错误代码准确信息和在源代码的错误位置
+
+	// hidden-source-map 
+	// 外部生成map文件
+	// 提示错位代码错误原因，但是没有错误位置，不能追踪到源代码错误，只能提示到构建后代码错误位置
+
+	// eval-source-map 
+	// 内部 每一个js文件都会生成source-map 在eval函数里面
+	// 提示到错误代码准确信息和在源代码的错误位置
+
+	// nosources-source-map
+	// 外部
+	// 能到到错误代码准确信息，但是没有任何源代码的错误，看不到构建后的代码和源代码
+
+	//cheap-source-map 
+	// 外部
+	// 提示到错误代码准确信息和在源代码的错误位置，但是只能精确到行
+
+	// cheap-module-source-map 
+	// 外部
+	// 提示到错误代码准确信息和在源代码的错误位置，但是只能精确到行
+
+
+
+	// 用法
+	// development
+	// production
+
+	// build speed  =======>   eval>inline>cheap
+
 	devtool: "source-map",
 };
