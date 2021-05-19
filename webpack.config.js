@@ -21,6 +21,16 @@ const cssLoader = [production ? MiniCssPlugin.loader : "style-loader"];
 // 所以文件名最终选择contenthash，避免修改一个文件影响其他文件名的hash
 
 
+
+// tree shaking
+// 启用条件
+// 1. 启用es6 module
+// 2. 环境为production
+// 在package.json中 sideEffects 表示所有的代码都没有副作用
+// 表示不需要进行tree shaking的资源
+// "sideEffects": ["*.css"]
+
+
 const plugins = production
 	? [
 			new HTMLWebpackPlugin({
