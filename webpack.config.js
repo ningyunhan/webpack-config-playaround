@@ -7,9 +7,19 @@ const MiniCssPlugin = require("mini-css-extract-plugin");
 // 压缩css
 const OptimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin");
 
-const production = false;
+const production = true;
 const env = production ? "production" : "development";
 const cssLoader = [production ? MiniCssPlugin.loader : "style-loader"];
+
+
+// hash 
+// 所有文件共享webpack打包生成的hash
+// chunkhash
+// 同一个chunk共享同一个hash
+// contenthash
+// 根据文件的内容生成hash
+// 所以文件名最终选择contenthash，避免修改一个文件影响其他文件名的hash
+
 
 const plugins = production
 	? [
@@ -22,7 +32,8 @@ const plugins = production
 				},
 			}),
 			new MiniCssPlugin({
-				filename: "css/build.css",
+				// 文件名加入hash值防止浏览器缓存
+				filename: "css/build.[contenthash:10].css",
 			}),
 			new OptimizeCssAssetsWebpackPlugin(),
 	  ]
@@ -37,8 +48,9 @@ const plugins = production
 
 module.exports = {
 	entry: ["./src/index.js", "./src/index.html"],
-	output: {
-		filename: "js/build.js",
+	output: { 
+		// 文件名加入hash值防止浏览器缓存
+		filename: "js/build.[contenthash:10].js",
 		path: resolve(__dirname, "build"),
 	},
 	module: {
@@ -112,6 +124,8 @@ module.exports = {
 										},
 									],
 								],
+								// 开启babel缓存,让第二次打包速度更快
+								cacheDirectory: true
 							},
 						},
 					},
