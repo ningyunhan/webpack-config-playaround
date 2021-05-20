@@ -70,6 +70,7 @@ module.exports = {
 				oneOf: [
 					{
 						test: /\.css$/,
+						exclude: /node_modules/,
 						use: [
 							...cssLoader,
 							"css-loader",
@@ -85,8 +86,9 @@ module.exports = {
 						],
 					},
 					{
-						test: /\.(jpg|png)$/,
+						test: /\.(jpg|png|gif)$/,
 						loader: "url-loader",
+						exclude: /node_modules/,
 						options: {
 							limit: 8 * 1024,
 							name: "[hash:5].[ext]",
@@ -97,16 +99,17 @@ module.exports = {
 					{
 						test: /\.html$/i,
 						loader: "html-loader",
+						exclude: /node_modules/,
 						options: {
 							esModule: false,
 						},
 					},
 					{
-						exclude: /\.(html|css|js|jpg|png)$/i,
+						exclude: /.(html|css|js|jpg|png|gif|.m?js)$/i,
 						loader: "file-loader",
 						options: {
 							name: "[hash:10].[ext]",
-							outputPath: "files",
+							outputPath: "media"
 						},
 					},
 					{
@@ -206,4 +209,12 @@ module.exports = {
 	// build speed  =======>   eval>inline>cheap
 
 	devtool: "source-map",
+
+	// 可以将node_modules中的代码单独打包一个chunk输出
+	// 自动分析多入口chunk中有没有公共的文件。如果有会打爆成单独的一个chunk
+	// optimization: {
+	// 	splitChunks: {
+	// 		chunks: 'all'
+	// 	}
+	// }
 };

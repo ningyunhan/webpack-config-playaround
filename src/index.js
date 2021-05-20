@@ -1,4 +1,5 @@
 import './index.css';
+// import $ from 'jquery';
 import print from './print';
 
 const c = (a, b) => a + b;
@@ -17,6 +18,8 @@ const b = new Promise((resolve) => {
 console.log(c(12, 23));
 // eslint-disable-next-line
 console.log(12, a, b);
+// eslint-disable-next-line
+// console.log($)
 
 print();
 
