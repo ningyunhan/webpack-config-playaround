@@ -1,6 +1,8 @@
-const print = () => {
-  // eslint-disable-next-line
-  console.log('hello print12332');
-};
+import _ from 'lodash';
 
-export default print;
+export default function print() {
+  // eslint-disable-next-line
+  console.log('print');
+}
+// eslint-disable-next-line
+console.log(_.join(['Another', 'module', 'loaded!'], ' '));

@@ -57,10 +57,13 @@ const plugins = production
 // process.env.NODE_ENV = "development";
 
 module.exports = {
-	entry: ["./src/index.js", "./src/index.html"],
+	entry: {
+		index: './src/index.js',
+		// another: './src/print.js',
+	  },
 	output: { 
 		// 文件名加入hash值防止浏览器缓存
-		filename: "js/build.[contenthash:10].js",
+		filename: "js/[name].[contenthash:10].js",
 		path: resolve(__dirname, "build"),
 	},
 	module: {
@@ -123,17 +126,17 @@ module.exports = {
 										"@babel/preset-env",
 										{
 											// 测试一定要指定 否则无法编译es6 -> es5
-											targets: "defaults",
+											// targets: "defaults",
 											// 按需加载
 											useBuiltIns: "usage",
 											corejs: {
 												version: 3,
 											},
 											// 指定兼容性做到哪个浏览器版本
-											// targets: {
-											// 	chrome: "60",
-											// 	ie: '9'
-											// },
+											targets: {
+												chrome: "60",
+												ie: '8'
+											},
 										},
 									],
 								],
@@ -160,7 +163,7 @@ module.exports = {
 	mode: env,
 
 	// 保证webpack输出的代码不含有es6语法
-	target: "es5",
+	// target: "es5",
 
 	//npx webpack serve
 	devServer: {
@@ -212,9 +215,9 @@ module.exports = {
 
 	// 可以将node_modules中的代码单独打包一个chunk输出
 	// 自动分析多入口chunk中有没有公共的文件。如果有会打爆成单独的一个chunk
-	// optimization: {
-	// 	splitChunks: {
-	// 		chunks: 'all'
-	// 	}
-	// }
+	optimization: {
+		splitChunks: {
+			chunks: 'all'
+		}
+	}
 };
