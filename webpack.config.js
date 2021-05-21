@@ -7,6 +7,9 @@ const MiniCssPlugin = require("mini-css-extract-plugin");
 // 压缩css
 const OptimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin");
 
+// PWA
+const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
+
 const production = true;
 const env = production ? "production" : "development";
 const cssLoader = [production ? MiniCssPlugin.loader : "style-loader"];
@@ -30,6 +33,12 @@ const cssLoader = [production ? MiniCssPlugin.loader : "style-loader"];
 // 表示不需要进行tree shaking的资源
 // "sideEffects": ["*.css"]
 
+/*
+	PWA渐进式网络开发应用程序（离线也可以访问）
+	workbox-webpack-plugin
+*/
+
+
 
 const plugins = production
 	? [
@@ -46,6 +55,13 @@ const plugins = production
 				filename: "css/build.[contenthash:10].css",
 			}),
 			new OptimizeCssAssetsWebpackPlugin(),
+			new WorkboxWebpackPlugin.GenerateSW({
+				/*
+					帮助生成service worker的配置文件
+				*/
+				clientsClaim: true,
+				skipWaiting: true
+			})
 	  ]
 	: [
 			new HTMLWebpackPlugin({
