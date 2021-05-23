@@ -134,32 +134,38 @@ module.exports = {
 					{
 						test: /\.m?js$/,
 						exclude: /node_modules/,
-						use: {
-							loader: "babel-loader",
-							options: {
-								presets: [
-									[
-										"@babel/preset-env",
-										{
-											// 测试一定要指定 否则无法编译es6 -> es5
-											// targets: "defaults",
-											// 按需加载
-											useBuiltIns: "usage",
-											corejs: {
-												version: 3,
+						use: [
+							// 为babel loader开启多进程打包\
+							// 但是只有工作消耗时间比较长开启不哦进程打包才有意义
+							// 因为开启进程和进程间通信也有额外的开销
+							'thread-loader',
+							{
+								loader: "babel-loader",
+								options: {
+									presets: [
+										[
+											"@babel/preset-env",
+											{
+												// 测试一定要指定 否则无法编译es6 -> es5
+												// targets: "defaults",
+												// 按需加载
+												useBuiltIns: "usage",
+												corejs: {
+													version: 3,
+												},
+												// 指定兼容性做到哪个浏览器版本
+												targets: {
+													chrome: "60",
+													ie: '8'
+												},
 											},
-											// 指定兼容性做到哪个浏览器版本
-											targets: {
-												chrome: "60",
-												ie: '8'
-											},
-										},
+										],
 									],
-								],
-								// 开启babel缓存,让第二次打包速度更快
-								cacheDirectory: true
+									// 开启babel缓存,让第二次打包速度更快
+									cacheDirectory: true
+								},
 							},
-						},
+						]
 					},
 				],
 			},
@@ -220,6 +226,7 @@ module.exports = {
 	// cheap-module-source-map
 	// 外部
 	// 提示到错误代码准确信息和在源代码的错误位置，但是只能精确到行
+	// 同时会将loader的source map加进来
 
 	// 用法
 	// development
