@@ -242,5 +242,9 @@ module.exports = {
 		splitChunks: {
 			chunks: 'all'
 		}
+	},
+	// 通过cdn引入的package需要加入到externals避免被打包进去
+	externals: {
+		// jquery: 'jQuery'
 	}
 };

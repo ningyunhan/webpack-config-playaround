@@ -1,4 +1,6 @@
-import _ from 'lodash';
+// import _ from 'lodash';
+const _ = require('lodash');
+// import $ from 'jquery';
 
 export default function print() {
   // eslint-disable-next-line
