@@ -5,6 +5,19 @@
 ## 开发环境
 * 优化打包构建速度
     * HMR
+        * css 因为style-loader实现了HMR多以开发环境使用style-loader
+        * html 默认不使用HMR 本质上也不需要
+        * js 默认不使用HMR， 但是需要添加代码才能支持, 而且只能对非入口文件有效
+            ```javascript
+                if(module.hot) {
+                    module.hot.accept(
+                        './file-path', 
+                        function() {
+
+                        }
+                    )
+                }
+            ```
 * 优化代码调试
     * source-map
 
