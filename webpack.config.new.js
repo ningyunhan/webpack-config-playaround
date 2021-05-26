@@ -11,8 +11,12 @@ module.exports = {
 		add: "./src2/add.js",
 	},
 	output: {
-		filename: "[name].[contenthash:5].js",
+		filename: "js/[name].[contenthash:5].js",
 		path: resolve(__dirname, "build2"),
+        publicPath: '/',
+        chunkFilename: 'js/[name]_chunk.js',
+        library: '[name]',
+        libraryTarget: 'commonjs'
 	},
 	module: {
 		rules: [...loaders],

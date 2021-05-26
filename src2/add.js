@@ -4,6 +4,7 @@ function add(x, y) {
 	return x + y;
 }
 
+var e = 15;
 
 count(3,2);
 
