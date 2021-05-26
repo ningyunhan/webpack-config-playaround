@@ -76,7 +76,7 @@ module.exports = {
 	entry: {
 		index: './src/index.js',
 		// another: './src/print.js',
-	  },
+	},
 	output: { 
 		// 文件名加入hash值防止浏览器缓存
 		filename: "js/[name].[contenthash:10].js",
