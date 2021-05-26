@@ -28,13 +28,13 @@
     >两种方法形成非入口chunk,如果没有指定则会使用filename
     1. 通过import（dynamic）
 
-    2. 
+    2.  
         ```javascript
-        	optimization: {
-                splitChunks: {
-                    chunks: 'all'
-                }
-	        },
+        optimization: {
+            splitChunks: {
+                chunks: 'all'
+            }
+        }
         ```
 * library
     >向外暴露变量名称
