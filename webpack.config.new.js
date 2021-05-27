@@ -13,10 +13,10 @@ module.exports = {
 	output: {
 		filename: "js/[name].[contenthash:5].js",
 		path: resolve(__dirname, "build2"),
-        publicPath: '/',
-        chunkFilename: 'js/[name]_chunk.js',
-        library: '[name]',
-        libraryTarget: 'commonjs'
+        // publicPath: '/',
+        // chunkFilename: 'js/[name]_chunk.js',
+        // library: '[name]',
+        // libraryTarget: 'commonjs'
 	},
 	module: {
 		rules: [...loaders],
