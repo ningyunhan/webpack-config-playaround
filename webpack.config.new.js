@@ -23,4 +23,7 @@ module.exports = {
 	},
 	plugins: [...plugins],
 	mode,
+	resolve: {
+
+	}
 };
