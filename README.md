@@ -50,7 +50,7 @@
             }
         },   
         
-        用于将node_module 里面的代码和自己写的js代码打包成不同的
+        用于将node_module 里面的代码和自己写的js代码打包成不同的文件
         ```
         * 多入口
         ```javascript

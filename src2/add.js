@@ -1,3 +1,5 @@
+// import $ from 'jquery';
+// import _ from 'lodash';
 import count from './count';
 
 function add(x, y) {

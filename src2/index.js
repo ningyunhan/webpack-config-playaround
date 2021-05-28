@@ -1,9 +1,10 @@
 // import add from './add';
 // import count from "./count";
+// import $ from 'jquery';
 
 console.log("index js loaded~~");
 
-import("./add").then(({ default: add }) => {
+import(/* webpackChunkName: 'what' */"./add").then(({ default: add }) => {
 	console.log(add(3, 2), '333');
 });
 
