@@ -161,6 +161,7 @@ module.exports = function (webpackEnv) {
   return {
     mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
     // Stop compilation early in production
+    // 生产条件下及时终止出错的代码不再继续进行打包输出
     bail: isEnvProduction,
     devtool: isEnvProduction
       ? shouldUseSourceMap

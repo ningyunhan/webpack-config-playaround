@@ -7,17 +7,19 @@ const loaders = [];
 const plugins = [new HTMLWebpackPlugin()];
 
 module.exports = {
-	entry: {
-		index: "./src2/index.js",
-		add123: "./src2/add.js",
-	},
+	entry: [
+		"./src2/index.js"
+	],
 	output: {
 		filename: "js/[name].js",
 		path: resolve(__dirname, "build2"),
         // publicPath: '/',
         chunkFilename: 'js/[name].[contenthash:10].chunk.js',
-        // library: '[name]',
-        // libraryTarget: 'commonjs'
+		pathinfo: false,
+		// chunkLoadingGlobal: `webpackJsonphellopppp`,
+        library: '[name]_sss',
+        libraryTarget: 'window',
+		// globalObject: 'this'
 	},
 	module: {
 		rules: [...loaders],
