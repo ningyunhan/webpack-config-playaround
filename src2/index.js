@@ -1,6 +1,7 @@
 // import add from './add';
 // import count from "./count";
 // import $ from 'jquery';
+import './index.css';
 
 console.log("index js loaded~~");
 

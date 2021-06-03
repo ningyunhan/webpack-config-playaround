@@ -100,7 +100,9 @@ module.exports = {
 									postcssOptions: {
 										plugins: ["postcss-preset-env"],
 									},
+									sourceMap: true
 								},
+								
 							},
 						],
 					},

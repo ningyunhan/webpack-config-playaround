@@ -1,10 +1,35 @@
 const { resolve } = require("path");
 const HTMLWebpackPlugin = require("html-webpack-plugin");
 const TerserWebpackPlugin = require('terser-webpack-plugin');
+const MiniCssPlugin = require("mini-css-extract-plugin");
 
 const mode = "development";
-const loaders = [];
-const plugins = [new HTMLWebpackPlugin()];
+const loaders = [
+	{
+		test: /\.css$/,
+		use: [
+			MiniCssPlugin.loader,
+			{
+				loader: require.resolve('css-loader'),
+				options: {
+					sourceMap: true,
+					modules: {
+						getLocalIdent: () => {
+							return 'wwwww';
+						},
+					},
+				}
+			}
+		]
+	}
+];
+const plugins = [
+	new HTMLWebpackPlugin(),
+	new MiniCssPlugin({
+		// 文件名加入hash值防止浏览器缓存
+		filename: "css/build.[contenthash:10].css",
+	})
+];
 
 module.exports = {
 	entry: [
@@ -40,5 +65,6 @@ module.exports = {
 		minimizer: [
 			new TerserWebpackPlugin()
 		]
-	}
+	},
+	devtool: 'source-map'
 };
