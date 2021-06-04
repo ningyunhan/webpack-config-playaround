@@ -14,16 +14,25 @@ module.exports = {
 	entry: "./src-loader/index.js",
 	output: {
 		filename: "js/[name].js",
-		path: resolve(__dirname, "build/build3"),
+		path: resolve(__dirname, "build"),
 	},
 	module: {
 		rules: [
             {
                 test: REG.JS.regularJS,
-                loader:
+                use: [
+                    'loader1',
+                    'loader2'
+                ]
             }
         ],
 	},
+    resolveLoader: {
+        modules: [
+            'node_modules',
+            resolve(__dirname, 'src-loader/loaders')
+        ]
+    },
 	plugins: [],
-	mode: "",
+	mode,
 };
