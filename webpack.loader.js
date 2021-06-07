@@ -20,16 +20,22 @@ module.exports = {
 		rules: [
             {
                 test: REG.JS.regularJS,
-                use: [
-                    'loader1',
-                    {
-                        loader: 'loader2',
-                        options: {
-                            name: 'jack',
-                            age: 18
-                        }
-                    }
-                ]
+                // use: [
+                //     'loader1',
+                //     {
+                //         loader: 'loader2',
+                //         options: {
+                //             name: 'jack',
+                //             age: 18
+                //         }
+                //     }
+                // ]
+                loader: 'babelLoader',
+                options: {
+                    presets: [
+                        "@babel/preset-env",
+                    ]
+                }
             }
         ],
 	},
