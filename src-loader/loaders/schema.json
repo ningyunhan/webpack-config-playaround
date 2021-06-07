@@ -1,0 +1,10 @@
+{
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "this is name of this loader"
+        }
+    },
+    "additionalProperties": true
+}

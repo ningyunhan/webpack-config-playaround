@@ -22,7 +22,13 @@ module.exports = {
                 test: REG.JS.regularJS,
                 use: [
                     'loader1',
-                    'loader2'
+                    {
+                        loader: 'loader2',
+                        options: {
+                            name: 'jack',
+                            age: 18
+                        }
+                    }
                 ]
             }
         ],
