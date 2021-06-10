@@ -26,9 +26,9 @@ class CopyWebpackPlugin {
 
                         // 指的是运行代码的目录
                         const context = compiler.options.context;
-
                         const absolutePath = path.isAbsolute(from) ? from : path.resolve(context, from);
                         
+                        // 实际测试绝对路径在windows系统下不起作用，此处暂时使用相对路径
 						const paths = await globby(from, { ignore });
                         console.log(paths);
                         cb();
