@@ -8,7 +8,8 @@
 				"dev-server": "npx webpack serve",
 				"build": "webpack",
 				"build2": "webpack --config webpack.config.new.js",
-				"loader": "webpack --config webpack.loader.js"
+				"loader": "webpack --config webpack.loader.js",
+				"plugin": "webpack --config webpack.plugins.js"
 		},
 		"author": "Yunhan Ning",
 		"license": "ISC",
@@ -32,6 +33,7 @@
 				"postcss-loader": "^5.2.0",
 				"postcss-preset-env": "^6.7.0",
 				"style-loader": "^2.0.0",
+				"tapable": "^2.2.0",
 				"terser-webpack-plugin": "^5.1.2",
 				"thread-loader": "^3.0.4",
 				"url-loader": "^4.1.1",
