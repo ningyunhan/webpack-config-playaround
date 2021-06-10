@@ -1,9 +1,13 @@
-const P1 = require('./src-plugins/plugins/P1');
+const copyWebpackPlugin = require('./src-plugins/plugins/CopyWebpackPlugin');
+
 
 module.exports = {
     entry: "./src-plugins/index.js",
     plugins: [
-        new P1()
+        new copyWebpackPlugin({
+            from: 'public',
+            ignore: ['index.html']
+        })
     ],
     mode: 'development'
 };
