@@ -1,5 +1,8 @@
 const { validate } = require("schema-utils");
 const schema = require("./CopyWebpackSchema.json");
+const globby = require("globby");
+const path = require("path");
+const { isAbsolute } = require("path");
 
 class CopyWebpackPlugin {
 	constructor(options = {}) {
@@ -17,9 +20,19 @@ class CopyWebpackPlugin {
 				// 为compilation添加hooks
 				compilation.hooks.additionalAssets.tapAsync(
 					"CopyWebpackPlugin",
-					(cb) => {
+					async (cb) => {
+						const { from, ignore } = this.options;
+						const to = this.options.to || ".";
+
+                        // 指的是运行代码的目录
+                        const context = compiler.options.context;
+
+                        const absolutePath = path.isAbsolute(from) ? from : path.resolve(context, from);
                         
-                    }
+						const paths = await globby(from, { ignore });
+                        console.log(paths);
+                        cb();
+					}
 				);
 			}
 		);
