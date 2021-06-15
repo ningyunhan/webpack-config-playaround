@@ -20,5 +20,10 @@
   "bugs": {
     "url": "https://github.com/ningyunhan/webpack-config-playaround/issues"
   },
-  "homepage": "https://github.com/ningyunhan/webpack-config-playaround#readme"
+  "homepage": "https://github.com/ningyunhan/webpack-config-playaround#readme",
+  "devDependencies": {
+    "@babel/parser": "^7.14.6",
+    "@babel/traverse": "^7.14.5"
+  },
+  "dependencies": {}
 }
